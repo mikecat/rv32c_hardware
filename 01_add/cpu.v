@@ -44,7 +44,7 @@ module regs(clock, reset, select, in_data, out_data);
 
 	reg [31:0] regs[0:31];
 
-	assign out_data = select == 5'd0 ? 0 : regs[select];
+	assign out_data = select == 5'd0 ? 32'd0 : regs[select];
 
 	integer i;
 	always @(posedge clock) begin

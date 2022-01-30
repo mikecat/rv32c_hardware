@@ -18,6 +18,7 @@ module cpu(clock, reset);
 	wire [4:0] Rm, Rs, Rd;
 	wire [31:0] Rm_data, Rs_data, immediate;
 	wire [31:0] new_value;
+	wire is_immediate;
 	wire [9:0] alu_op;
 
 	decoder decoder(

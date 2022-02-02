@@ -12,7 +12,7 @@ module runner();
 		$dumpfile("result.vcd");
 		$dumpvars(0, runner);
 		$readmemb("prog.txt", mem_temp);
-		for (i = 0; i < 512; i++) begin
+		for (i = 0; i < 512; i = i + 1) begin
 			CPU.mem.mem_array[i] <= { mem_temp[i * 2 + 1], mem_temp[i * 2] };
 		end
 

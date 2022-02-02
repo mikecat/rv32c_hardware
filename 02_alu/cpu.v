@@ -144,7 +144,7 @@ module regs(clock, reset, Rm, Rs, Rd, Rm_data, Rs_data, Rd_data);
 	integer i;
 	always @(posedge clock) begin
 		if (reset) begin
-			for (i = 0; i < 32; i++) begin
+			for (i = 0; i < 32; i = i + 1) begin
 				regs[i] <= 32'd0;
 			end
 		end else begin

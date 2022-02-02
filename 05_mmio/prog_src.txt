@@ -1,0 +1,14 @@
+MODE RV32C
+R10 = 1
+R10 <<= 6
+R11 = [R10 + 0]L
+R12 = 3
+R12 <<= 30
+[R12 + 0]L = R11
+R13 = 0
+[R12 + 4]L = R13
+@END
+GOTO @END
+
+ALIGNR #800, #40, 0
+UDATAL #DEADBEEF

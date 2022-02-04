@@ -169,7 +169,7 @@ with tempfile.TemporaryDirectory() as workDir:
 				caseName, ext = os.path.splitext(name)
 				trueCaseName, _ = os.path.splitext(caseName)
 				with open(os.path.join(scriptDir, caseDirName, trueCaseName + ".out.txt"), "r") as expectedFile:
-					expected = expectedFile.read().replace("\r\n", "\n").replace("\r", "\n").rstrip().split("\n")
+					expected = [l for l in expectedFile.read().replace("\r\n", "\n").replace("\r", "\n").rstrip().split("\n") if (len(l) > 0) and ("'" not in l)]
 					if resultLines != expected:
 						logger.warning("test " + name + " failed!")
 						logger.warning("expected: " + str(expected))

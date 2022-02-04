@@ -75,6 +75,11 @@ if len(testcases_to_assemble) > 0:
 		# open asm15
 		driver.get(asm15_url)
 
+		# set start address
+		txtadr = driver.find_element(By.ID, "txtadr")
+		txtadr.clear()
+		txtadr.send_keys("0")
+
 		# set output format
 		selfmt = driver.find_element(By.ID, "selfmt")
 		selfmt_selobj = Select(selfmt)
@@ -118,11 +123,30 @@ if len(testcases_to_assemble) > 0:
 				oldCaches = glob.glob(caseName + ".*" + ext)
 				for oc in oldCaches:
 					os.remove(oc)
-				# convert result to memory data
-				finalResult = result
-				# save result
-				with open(cachePath, "w") as f:
-					f.write(finalResult)
+				# convert result to full memory data
+				resultArray = result.replace("\r\n", "\n").replace("\r", "\n").rstrip().split("\n")
+				finalResultArray = []
+				key1, key2 = "*** ", "-byte gap ***"
+				errorFoundForThisFile = False
+				for word in resultArray:
+					if (word[:len(key1)] == key1) and (word[-len(key2):] == key2):
+						gapSize = int(word[len(key1):-len(key2)])
+						if gapSize % 2 != 0:
+							logger.error("odd-sized gap found for " + name)
+							errorOccured = True
+							errorFoundForThisFile = True
+						finalResultArray += ["0" * 16] * (gapSize // 2)
+					else:
+						finalResultArray.append(word)
+				if len(finalResultArray) > testeeMemorySize:
+					logger.error("assembly result too large for " + name + (" (%d/%d)" % (len(finalResultArray), testeeMemorySize)))
+					errorOccured = True
+				elif not errorFoundForThisFile:
+					finalResultArray += ["0" * 16] * (testeeMemorySize - len(finalResultArray))
+					finalResult = "\n".join(finalResultArray) + "\n"
+					# save result
+					with open(cachePath, "w") as f:
+						f.write(finalResult)
 	if errorOccured:
 		sys.exit(-1)
 

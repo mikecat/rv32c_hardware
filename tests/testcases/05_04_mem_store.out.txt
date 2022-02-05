@@ -1,0 +1,17 @@
+' immediate offset bits test
+1b77c9be
+66b4a2d2
+c8e7af23
+b909a021
+e4324a0f
+265efb52
+
+' byte offset test
+f41fba65
+23222120
+90c32e30
+4342413e
+eb855150
+6362cdc4
+25727170
+83fb6b56

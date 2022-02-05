@@ -1,0 +1,33 @@
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 0
+R14 += -1
+
+' check if link register is correctly unchanged
+R13 = 1
+R13 <<= 8
+R10 = [R13 + 0]L
+R1 = R10
+
+R11 = 8
+@LOOP
+[R15 + 0]L = R11
+R10 = R11
+R10 &= 1
+IF !R10 GOTO @COND
+R12 = R11
+R12 ^= R14
+[R15 + 0]L = R12
+@COND
+R11 += -1
+IF R11 GOTO @LOOP
+
+R10 = R1
+[R15 + 0]L = R10
+
+' finish
+[R15 + 4]L = R10
+
+ORG #100
+UDATAL #DEADBEEF

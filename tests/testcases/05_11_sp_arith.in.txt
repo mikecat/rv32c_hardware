@@ -1,0 +1,55 @@
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 1
+R14 <<= 8
+R10 = [R14 + 0]L
+R2 = R10
+
+' test c.addi4spn
+R10 = SP + 0
+[R15 + 0]L = R10
+R11 = SP + 1
+[R15 + 0]L = R11
+R10 = SP + 2
+[R15 + 0]L = R10
+R11 = SP + 4
+[R15 + 0]L = R11
+R10 = SP + 8
+[R15 + 0]L = R10
+R11 = SP + #10
+[R15 + 0]L = R11
+R10 = SP + #20
+[R15 + 0]L = R10
+R11 = SP + #40
+[R15 + 0]L = R11
+R10 = SP + #80
+[R15 + 0]L = R10
+
+' test c.addi16sp
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += 1
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += 2
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += 4
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += 8
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += #10
+R10 = SP + 0
+[R15 + 0]L = R10
+SP += -15
+R10 = SP + 0
+[R15 + 0]L = R10
+
+' finish
+[R15 + 4]L = R10
+
+ORG #100
+UDATAL #DEADBEEF

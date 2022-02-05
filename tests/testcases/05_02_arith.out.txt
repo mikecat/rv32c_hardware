@@ -1,0 +1,75 @@
+' c.addi
+12345684
+1234566b
+fffffff8
+0000000f
+
+' c.slli
+bd5b7dde
+f56df778
+b6fbbc00
+bbc00000
+80000000
+
+' c.add
+2468acf0
+f0e21567
+12345678
+bd5b7dde
+
+' c.srli
+091a2b3c
+0048d159
+00012345
+00000009
+00000000
+
+6f56df77
+037ab6fb
+000deadb
+0000006f
+00000001
+
+' c.srai
+048d159e
+01234567
+00002468
+00000091
+00000000
+
+f7ab6fbb
+fdeadbee
+ffffbd5b
+fffffef5
+ffffffff
+
+' c.andi
+00000007
+00000006
+deadbeeb
+deadbee3
+
+' c.sub
+12345678
+edcba988
+21524111
+33869789
+cc796877
+
+' c.xor
+12345678
+cc99e897
+00000000
+4b3e7387
+
+' c.or
+deadbeef
+debdfeff
+12345678
+7ffb7ffb
+
+' c.and
+00000000
+12241668
+deadbeef
+1180b3c0

@@ -1,0 +1,108 @@
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 2
+R14 <<= 8
+R13 = #FFFFF000
+R13 >>>= 4
+
+' prepare #AAAAAAAA puttern
+R10 = #A
+R11 = R10
+R11 <<= 4
+R10 |= R11
+R11 = R10
+R11 <<= 8
+R10 |= R11
+R11 = R10
+R11 <<= 16
+R10 |= R11
+
+' initialize prime flags
+R11 = 0
+@INIT_LOOP
+[R14 + 0]L = R10
+R14 += 4
+R11 += 16
+R11 += 16
+R12 = R11
+R12 &= R13
+IF !R12 GOTO @INIT_LOOP
+' first element = #AAAAAAAC
+R14 = 2
+R14 <<= 8
+R10 += 2
+[R14 + 0]L = R10
+
+' sieve
+R8 = 2
+[R15 + 0]L = R8
+R8 = 3
+@SIEVE_LOOP1
+R10 = 1
+R11 = R8
+GOSUB @SHIFT
+R11 >>= 5
+R11 <<= 2
+R11 += R14
+R11 = [R11 + 0]L
+R11 &= R10
+IF !R11 GOTO @SIEVE_NOT_PRIME
+[R15 + 0]L = R8
+R9 = R8
+GOTO @SIEVE_LOOP2_END
+@SIEVE_LOOP2
+R10 = 1
+R11 = R9
+GOSUB @SHIFT
+R11 = -1
+R10 ^= R11
+R11 = R9
+R11 >>= 5
+R11 <<= 2
+R11 += R14
+R12 = [R11 + 0]L
+R12 &= R10
+[R11 + 0]L = R12
+@SIEVE_LOOP2_END
+R9 += R8
+R10 = R9
+R10 &= R13
+IF !R10 GOTO @SIEVE_LOOP2
+@SIEVE_NOT_PRIME
+R8 += 2
+R10 = R8
+R10 &= R13
+IF !R10 GOTO @SIEVE_LOOP1
+
+' finish
+[R15 + 4]L = R10
+
+' R10 <<= R11 (breaks R12)
+@SHIFT
+R12 = R11
+R12 &= 1
+IF !R12 GOTO @SHIFT_NO_0
+R10 <<= 1
+@SHIFT_NO_0
+R12 = R11
+R12 &= 2
+IF !R12 GOTO @SHIFT_NO_1
+R10 <<= 2
+@SHIFT_NO_1
+R12 = R11
+R12 &= 4
+IF !R12 GOTO @SHIFT_NO_2
+R10 <<= 4
+@SHIFT_NO_2
+R12 = R11
+R12 &= 8
+IF !R12 GOTO @SHIFT_NO_3
+R10 <<= 8
+@SHIFT_NO_3
+R12 = R11
+R12 &= 16
+IF !R12 GOTO @SHIFT_NO_4
+R10 <<= 16
+@SHIFT_NO_4
+RET

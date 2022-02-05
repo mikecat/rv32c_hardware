@@ -1,0 +1,73 @@
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 7
+R14 <<= 8
+
+' goto with LSB=0
+R10 = 1
+R10 <<= 8
+R12 = [R14 + 0]L
+R13 = [R14 + 4]L
+R1 = R13
+R13 = [R14 + 8]L
+GOTO R10
+
+' goto with LSB=1
+ALIGN #800, #FE, #0001
+[R15 + 0]L = R13
+[R15 + 0]L = R12
+R10 = R1
+[R15 + 0]L = R10
+R11 = 2
+R11 <<= 8
+R11 += 1
+R12 = [R14 + #C]L
+R13 = [R14 + #10]L
+R1 = R13
+R13 = [R14 + #14]L
+GOTO R11
+
+'gosub with LSB=0
+ALIGN #800, #1FE, #0001
+[R15 + 0]L = R13
+[R15 + 0]L = R12
+R10 = R1
+[R15 + 0]L = R10
+R11 = 3
+R11 <<= 8
+R12 = [R14 + #18]L
+R13 = [R14 + #1C]L
+R1 = R13
+R13 = [R14 + #20]L
+ALIGN #800, #240, #0001
+GOSUB R11
+
+'gosub with LSB=1
+ALIGN #800, #2FE, #0001
+[R15 + 0]L = R13
+[R15 + 0]L = R12
+R10 = R1
+[R15 + 0]L = R10
+R10 = 4
+R10 <<= 8
+R10 += 1
+R12 = [R14 + #24]L
+R13 = [R14 + #28]L
+R1 = R13
+R13 = [R14 + #2C]L
+ALIGN #800, #340, #0001
+GOSUB R10
+
+ALIGN #800, #3FE, #0001
+[R15 + 0]L = R13
+[R15 + 0]L = R12
+R10 = R1
+[R15 + 0]L = R10
+
+' finish
+[R15 + 4]L = R10
+
+ORG #700
+UDATAL #152084A1, #AD26A59A, #EC90420D, #E67568FC, #AA38127C, #06214D5E, #1AA6FA0E, #128907B4
+UDATAL #F550C180, #370BE5AB, #546D3275, #AA420D6B, #C206F160, #8F015EC8, #5CDA2A23, #5F37220E

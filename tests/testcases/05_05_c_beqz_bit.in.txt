@@ -1,0 +1,84 @@
+' check if each bits of c.beqz is correctly reflected to the offset
+
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 4
+R14 <<= 8
+R13 = 0
+R12 = [R14 + #3C]L
+
+' commented offsets are in bytes
+' +#10
+R11 = [R14 + 0]L
+IF !R13 GOTO @L10
+SPACE #C, #0001
+[R15 + 0]L = R12
+@L10
+[R15 + 0]L = R11
+' +#12
+R11 = [R14 + 4]L
+IF !R13 GOTO @L12
+SPACE #E, #0001
+[R15 + 0]L = R12
+@L12
+[R15 + 0]L = R11
+' +#14
+R11 = [R14 + 8]L
+IF !R13 GOTO @L14
+SPACE #10, #0001
+[R15 + 0]L = R12
+@L14
+[R15 + 0]L = R11
+' +#18
+R11 = [R14 + #C]L
+IF !R13 GOTO @L18
+SPACE #14, #0001
+[R15 + 0]L = R12
+@L18
+[R15 + 0]L = R11
+' +#20
+R11 = [R14 + #10]L
+IF !R13 GOTO @L20
+SPACE #1C, #0001
+[R15 + 0]L = R12
+@L20
+[R15 + 0]L = R11
+' +#40
+R11 = [R14 + #14]L
+IF !R13 GOTO @L40
+SPACE #3C, #0001
+[R15 + 0]L = R12
+@L40
+[R15 + 0]L = R11
+' +#80
+R11 = [R14 + #18]L
+IF !R13 GOTO @L80
+SPACE #7C, #0001
+[R15 + 0]L = R12
+@L80
+[R15 + 0]L = R11
+' go back test
+R11 = [R14 + #1C]L
+IF !R13 GOTO @BACK0
+SPACE #24, #0001
+[R15 + 0]L = R12
+@BACK1
+[R15 + 0]L = R11
+' finish
+[R15 + 4]L = R10
+
+SPACE #1E, #0001
+[R15 + 0]L = R12
+@BACK0
+[R15 + 0]L = R11
+R11 = [R14 + #20]L
+IF !R13 GOTO @BACK1
+
+' won't come here
+[R15 + 0]L = R12
+[R15 + 4]L = R10
+
+ORG #400
+UDATAL #F5A42C69, #D3522A9C, #2F123576, #F35ADDDE, #655BFBC9, #6D309214, #81BD704E, #96BF058E
+UDATAL #AB2DD1D5, #C45AF16B, #4232A6AB, #455011E2, #0F16AF7B, #B338D6C3, #77FC87E8, #2C135449

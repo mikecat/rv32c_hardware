@@ -1,0 +1,19 @@
+' c.addi4spn
+deadbeef
+deadbef3
+deadbef7
+deadbeff
+deadbf0f
+deadbf2f
+deadbf6f
+deadbfef
+deadc0ef
+
+' c.addi16sp
+deadbeef
+deadbeff
+deadbf1f
+deadbf5f
+deadbfdf
+deadc0df
+deadbfef

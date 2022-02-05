@@ -1,0 +1,107 @@
+' check if each bits of c.j is correctly reflected to the offset
+
+MODE RV32C
+R15 = 3
+R15 <<= 30
+R14 = 1
+R14 <<= 8
+R12 = [R14 + #3C]L
+R11 = [R14 + 0]L
+R10 = 0
+ALIGN #800, #20, #0001
+GOTO @L400
+
+ORG #100
+UDATAL #4BAF7BF6, #A9BB8B98, #200F8B0E, #6A503592, #68722502, #236FE194, #CCBEE5A4, #6F73BCA0
+UDATAL #41AB5C79, #060AC231, #679DE290, #181C0714, #BFB67530, #1F3FD5F3, #46FE3B01, #B319E116
+
+ORG #200
+[R15 + 0]L = R12
+@BACK
+[R15 + 0]L = R11
+R11 = [R14 + #10]L
+ALIGN #800, #220, #0001
+GOTO @L80
+
+ALIGN #800, #29E, #0001
+[R15 + 0]L = R12
+@L80
+[R15 + 0]L = R11
+R11 = [R14 + #14]L
+ALIGN #800, #2C0, #0001
+GOTO @L40
+
+ALIGN #800, #2FE, #0001
+[R15 + 0]L = R12
+@L40
+[R15 + 0]L = R11
+R11 = [R14 + #18]L
+GOTO @L20
+
+SPACE #1C, #0001
+[R15 + 0]L = R12
+@L20
+[R15 + 0]L = R11
+R11 = [R14 + #1C]L
+GOTO @L10
+
+SPACE #C, #0001
+[R15 + 0]L = R12
+@L10
+[R15 + 0]L = R11
+R11 = [R14 + #20]L
+GOTO @L18
+
+SPACE #14, #0001
+[R15 + 0]L = R12
+@L18
+[R15 + 0]L = R11
+R11 = [R14 + #24]L
+GOTO @L14
+
+SPACE #10, #0001
+[R15 + 0]L = R12
+@L14
+[R15 + 0]L = R11
+R11 = [R14 + #28]L
+GOTO @L12
+
+SPACE #E, #0001
+[R15 + 0]L = R12
+@L12
+[R15 + 0]L = R11
+
+' finish
+[R15 + 4]L = R10
+
+ALIGN #800, #41E, #0001
+[R15 + 0]L = R12
+@L400
+[R15 + 0]L = R11
+R11 =[R14 + 4]L
+' also check if link register is correctly unchanged
+R10 = [R14 + #38]L
+R1 = R10
+ALIGN #800, #440, #0001
+GOTO @L200
+
+ALIGN #800, #63E, #0001
+[R15 + 0]L = R12
+@L200
+[R15 + 0]L = R11
+R10 = R1
+[R15 + 0]L = R10
+R11 = [R14 + 8]L
+ALIGN #800, #660, #0001
+GOTO @L100
+
+ALIGN #800, #75E, #0001
+[R15 + 0]L = R12
+@L100
+[R15 + 0]L = R11
+R11 = [R14 + #C]L
+GOTO @BACK
+
+' won't come here
+[R15 + 0]L = R12
+[R15 + 4]L = R10

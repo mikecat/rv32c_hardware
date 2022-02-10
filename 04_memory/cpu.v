@@ -308,8 +308,8 @@ module regs(clock, reset, Rm, Rs, Rd, Rm_data, Rs_data, Rd_data);
 
 	reg [31:0] regs[0:31];
 
-	assign Rm_data = Rm == 5'd0 ? 0 : regs[Rm];
-	assign Rs_data = Rs == 5'd0 ? 0 : regs[Rs];
+	assign Rm_data = Rm == 5'd0 ? 32'd0 : regs[Rm];
+	assign Rs_data = Rs == 5'd0 ? 32'd0 : regs[Rs];
 
 	integer i;
 	always @(posedge clock) begin

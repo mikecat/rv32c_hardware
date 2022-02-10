@@ -34,7 +34,7 @@ if len(sys.argv) < 3:
 testeeFile = os.path.abspath(sys.argv[1])
 testLevel = int(sys.argv[2])
 
-scriptDir = os.path.dirname(sys.argv[0])
+scriptDir = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

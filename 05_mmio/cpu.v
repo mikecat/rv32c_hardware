@@ -232,7 +232,7 @@ module decoder(
 
 	wire c_lw = inst[15:13] == 3'b010 && inst[1:0] == 2'b00;
 	wire c_sw = inst[15:13] == 3'b110 && inst[1:0] == 2'b00;
-	wire c_swsp = inst[15:13] == 3'b110 && inst[1:0] ==2'b10;
+	wire c_swsp = inst[15:13] == 3'b110 && inst[1:0] == 2'b10;
 	wire c_lwsp = inst[15:13] == 3'b010 && inst[1:0] == 2'b10;
 
 	wire [9:0] c_other_calc_op_11 =
